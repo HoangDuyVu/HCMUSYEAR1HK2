@@ -1,288 +1,174 @@
 [
-    [
-        {
-            "RouteId": 11,
-            "RouteVarId": 1,
-            "RouteVarName": "Lượt đi: Bến xe Củ Chi - Cầu Tân Thái",
-            "RouteVarShortName": "Cầu Tân Thái",
-            "RouteNo": "100",
-            "StartStop": "Bến xe Củ Chi",
-            "EndStop": "Cầu Tân Thái",
-            "Distance": 16426.000000000004,
-            "Outbound": true,
-            "RunningTime": 35
-        },
-        {
-            "RouteId": 11,
-            "RouteVarId": 2,
-            "RouteVarName": "Lượt về: Cầu Tân Thái - Bến xe Củ Chi",
-            "RouteVarShortName": "Bến Xe Củ Chi",
-            "RouteNo": "100",
-            "StartStop": "Cầu Tân Thái",
-            "EndStop": "Bến xe Củ Chi",
-            "Distance": 17247.0,
-            "Outbound": false,
-            "RunningTime": 35
-        }
-    ],
-    [
-        {
-            "RouteId": 110,
-            "RouteVarId": 1,
-            "RouteVarName": "Lượt đi: Bố Heo - Bến xe Lộc Hưng",
-            "RouteVarShortName": "Lộc Hưng",
-            "RouteNo": "70-5",
-            "StartStop": "Bố Heo",
-            "EndStop": "Bến xe Lộc Hưng",
-            "Distance": 7517.0,
-            "Outbound": true,
-            "RunningTime": 15
-        },
-        {
-            "RouteId": 110,
-            "RouteVarId": 2,
-            "RouteVarName": "Lượt về: Bến xe Lộc Hưng - Bố Heo",
-            "RouteVarShortName": "Bố Heo",
-            "RouteNo": "70-5",
-            "StartStop": "Bến xe Lộc Hưng",
-            "EndStop": "Bố Heo",
-            "Distance": 7517.0,
-            "Outbound": false,
-            "RunningTime": 15
-        }
-    ],
-    [
-        {
-            "RouteId": 111,
-            "RouteVarId": 221,
-            "RouteVarName": "Lượt đi: Bến xe An Sương - Phật Cô Đơn",
-            "RouteVarShortName": "Phật Cô Đơn",
-            "RouteNo": "71",
-            "StartStop": "Bến xe An Sương",
-            "EndStop": "Phật Cô Đơn",
-            "Distance": 24048.000000000015,
-            "Outbound": true,
-            "RunningTime": 65
-        },
-        {
-            "RouteId": 111,
-            "RouteVarId": 222,
-            "RouteVarName": "Lượt về: Phật Cô Đơn - Bến xe An Sương",
-            "RouteVarShortName": "Bến xe An Sương",
-            "RouteNo": "71",
-            "StartStop": "Phật Cô Đơn",
-            "EndStop": "Bến xe An Sương",
-            "Distance": 23528.999999999985,
-            "Outbound": false,
-            "RunningTime": 65
-        }
-    ],
-    [
-        {
-            "RouteId": 112,
-            "RouteVarId": 223,
-            "RouteVarName": "Lượt đi: Bến xe buýt Sài Gòn - Hiệp Phước",
-            "RouteVarShortName": "Hiệp Phước",
-            "RouteNo": "72",
-            "StartStop": "Bến xe buýt Sài Gòn",
-            "EndStop": "Hiệp Phước",
-            "Distance": 21710.0,
-            "Outbound": true,
-            "RunningTime": 55
-        },
-        {
-            "RouteId": 112,
-            "RouteVarId": 224,
-            "RouteVarName": "Lượt về: Hiệp Phước - Bến xe buýt Sài Gòn",
-            "RouteVarShortName": "Bến xe buýt Sài Gòn",
-            "RouteNo": "72",
-            "StartStop": "Hiệp Phước",
-            "EndStop": "Bến xe buýt Sài Gòn",
-            "Distance": 21566.000000000004,
-            "Outbound": false,
-            "RunningTime": 55
-        }
-    ],
-    [
-        {
-            "RouteId": 113,
-            "RouteVarId": 225,
-            "RouteVarName": "Lượt đi: Chợ Bình Chánh - KCN LÊ MINH XUÂN",
-            "RouteVarShortName": "Khu công nghiệp Lê Minh Xuân",
-            "RouteNo": "73",
-            "StartStop": "Chợ Bình Chánh",
-            "EndStop": "KCN LÊ MINH XUÂN",
-            "Distance": 23378.000000000007,
-            "Outbound": true,
-            "RunningTime": 60
-        },
-        {
-            "RouteId": 113,
-            "RouteVarId": 226,
-            "RouteVarName": "Lượt về: KCN LÊ MINH XUÂN - Chợ Bình Chánh",
-            "RouteVarShortName": "Chợ Bình Chánh",
-            "RouteNo": "73",
-            "StartStop": "KCN LÊ MINH XUÂN",
-            "EndStop": "Chợ Bình Chánh",
-            "Distance": 22634.999999999996,
-            "Outbound": false,
-            "RunningTime": 60
-        }
-    ],
-    [
-        {
-            "RouteId": 114,
-            "RouteVarId": 227,
-            "RouteVarName": "Lượt đi: Bến xe An Sương - Bến xe Củ Chi",
-            "RouteVarShortName": "Bến xe Củ Chi",
-            "RouteNo": "74",
-            "StartStop": "Bến xe An Sương",
-            "EndStop": "Bến xe Củ Chi",
-            "Distance": 22529.000000000007,
-            "Outbound": true,
-            "RunningTime": 45
-        },
-        {
-            "RouteId": 114,
-            "RouteVarId": 228,
-            "RouteVarName": "Lượt về: Bến xe Củ Chi - Bến xe An Sương",
-            "RouteVarShortName": "Bến xe An Sương",
-            "RouteNo": "74",
-            "StartStop": "Bến xe Củ Chi",
-            "EndStop": "Bến xe An Sương",
-            "Distance": 22439.999999999996,
-            "Outbound": false,
-            "RunningTime": 45
-        }
-    ],
-    [
-        {
-            "RouteId": 115,
-            "RouteVarId": 231,
-            "RouteVarName": "Lượt đi: Bến xe buýt Sài Gòn - Bến xe buýt Cần Giờ",
-            "RouteVarShortName": "Cần Giờ",
-            "RouteNo": "75",
-            "StartStop": "Bến xe buýt Sài Gòn",
-            "EndStop": "Bến xe buýt Cần Giờ",
-            "Distance": 63314.0,
-            "Outbound": true,
-            "RunningTime": 140
-        },
-        {
-            "RouteId": 115,
-            "RouteVarId": 232,
-            "RouteVarName": "Lượt về: Bến xe buýt Cần Giờ - Bến xe buýt Sài Gòn",
-            "RouteVarShortName": "Bến Xe Buýt Sài Gòn",
-            "RouteNo": "75",
-            "StartStop": "Bến xe buýt Cần Giờ",
-            "EndStop": "Bến xe buýt Sài Gòn",
-            "Distance": 67729.99999999999,
-            "Outbound": false,
-            "RunningTime": 140
-        }
-    ],
-    [
-        {
-            "RouteId": 116,
-            "RouteVarId": 1,
-            "RouteVarName": "Lượt đi: Long Phước - Bến xe Miền Đông mới",
-            "RouteVarShortName": "Bến xe Miền Đông mới",
-            "RouteNo": "76",
-            "StartStop": "Long Phước",
-            "EndStop": "Bến xe Miền Đông mới",
-            "Distance": 23669.000000000004,
-            "Outbound": true,
-            "RunningTime": 58
-        },
-        {
-            "RouteId": 116,
-            "RouteVarId": 2,
-            "RouteVarName": "Lượt về: Bến xe Miền Đông mới - Long Phước",
-            "RouteVarShortName": "Long Phước",
-            "RouteNo": "76",
-            "StartStop": "Bến xe Miền Đông mới",
-            "EndStop": "Long Phước",
-            "Distance": 24511.999999999996,
-            "Outbound": false,
-            "RunningTime": 58
-        }
-    ],
-    [
-        {
-            "RouteId": 117,
-            "RouteVarId": 235,
-            "RouteVarName": "Lượt đi: Đồng Hòa - Cần Thạnh",
-            "RouteVarShortName": "Cần Thạnh",
-            "RouteNo": "77",
-            "StartStop": "Đồng Hòa",
-            "EndStop": "Bến xe buýt Cần Giờ",
-            "Distance": 17385.0,
-            "Outbound": true,
-            "RunningTime": 35
-        },
-        {
-            "RouteId": 117,
-            "RouteVarId": 236,
-            "RouteVarName": "Lượt về: Cần Thạnh - Đồng Hòa",
-            "RouteVarShortName": "Đồng Hòa",
-            "RouteNo": "77",
-            "StartStop": "Bến xe buýt Cần Giờ",
-            "EndStop": "Đồng Hòa",
-            "Distance": 15000.0,
-            "Outbound": false,
-            "RunningTime": 35
-        }
-    ],
-    [
-        {
-            "RouteId": 118,
-            "RouteVarId": 1,
-            "RouteVarName": "Lượt đi: Bến xe buýt Thới An - Bến xe buýt Cầu Lớn",
-            "RouteVarShortName": "Cầu Lớn",
-            "RouteNo": "78",
-            "StartStop": "Bến xe buýt Thới An",
-            "EndStop": "Bến xe buýt Cầu Lớn",
-            "Distance": 19096.999999999993,
-            "Outbound": true,
-            "RunningTime": 60
-        },
-        {
-            "RouteId": 118,
-            "RouteVarId": 2,
-            "RouteVarName": "Lượt về: Bến xe buýt Cầu Lớn - Bến xe buýt Thới An",
-            "RouteVarShortName": "Bến xe buýt Thới An",
-            "RouteNo": "78",
-            "StartStop": "Bến xe buýt Cầu Lớn",
-            "EndStop": "Bến xe buýt Thới An",
-            "Distance": 19173.999999999993,
-            "Outbound": false,
-            "RunningTime": 60
-        }
-    ],
-    [
-        {
-            "RouteId": 119,
-            "RouteVarId": 237,
-            "RouteVarName": "Lượt đi: Bến xe Củ Chi - Bến Dược",
-            "RouteVarShortName": "Đền Bến Dược",
-            "RouteNo": "79",
-            "StartStop": "Bến xe Củ Chi",
-            "EndStop": "Bến Dược",
-            "Distance": 25403.999999999996,
-            "Outbound": true,
-            "RunningTime": 45
-        },
-        {
-            "RouteId": 119,
-            "RouteVarId": 238,
-            "RouteVarName": "Lượt về: Bến Dược - Bến xe Củ Chi",
-            "RouteVarShortName": "Bến xe Củ Chi",
-            "RouteNo": "79",
-            "StartStop": "Bến Dược",
-            "EndStop": "Bến xe Củ Chi",
-            "Distance": 25925.0,
-            "Outbound": false,
-            "RunningTime": 45
-        }
-    ]
+    {
+        "Stops": [
+            {
+                "StopId": 7686,
+                "Code": "SWB1_11",
+                "Name": "Ga tàu thuỷ Linh Đông",
+                "StopType": "Trạm tạm",
+                "Zone": "Quận Thủ Đức",
+                "Ward": "Phường Linh Đông",
+                "AddressNo": "Bến tàu thuỷ Linh Đông",
+                "Street": "Đường số 36",
+                "SupportDisability": "Có",
+                "Status": "Chưa khai thác",
+                "Lng": 106.746254,
+                "Lat": 10.835287,
+                "Search": "GttLD BttLD Ds36",
+                "Routes": "SWB1"
+            },
+            {
+                "StopId": 7685,
+                "Code": "SWB1_10",
+                "Name": "Ga tàu thuỷ Hiệp Bình Chánh",
+                "StopType": "Trạm tạm",
+                "Zone": "Quận Thủ Đức",
+                "Ward": "Phường Hiệp Bình Chánh",
+                "AddressNo": "Bến tàu thuỷ Hiệp Bình Chánh",
+                "Street": "Đường số 10",
+                "SupportDisability": "Có",
+                "Status": "Chưa khai thác",
+                "Lng": 106.731475,
+                "Lat": 10.827231,
+                "Search": "GttHBC BttHBC Ds10",
+                "Routes": "SWB1"
+            },
+            {
+                "StopId": 7684,
+                "Code": "SWB1_8",
+                "Name": "Ga tàu thuỷ Thanh Đa",
+                "StopType": "Trạm tạm",
+                "Zone": "Quận Bình Thạnh",
+                "Ward": "Phường 27",
+                "AddressNo": "LO 1 Cư xá Thanh Đa ",
+                "Street": "Cư xá Thanh Đa",
+                "SupportDisability": "Có",
+                "Status": "Chưa khai thác",
+                "Lng": 106.715757,
+                "Lat": 10.819385,
+                "Search": "GttTD L1CxTD CxTD",
+                "Routes": "SWB1"
+            },
+            {
+                "StopId": 7683,
+                "Code": "SWB1_4",
+                "Name": "Ga tàu thuỷ Bình An",
+                "StopType": "Trạm tạm",
+                "Zone": "Quận 2",
+                "Ward": "Phường Bình An",
+                "AddressNo": "Ga tàu thuỷ Bình An",
+                "Street": "Đường số 21",
+                "SupportDisability": "",
+                "Status": "Chưa khai thác",
+                "Lng": 106.728734,
+                "Lat": 10.797349,
+                "Search": "GttBA GttBA Ds21",
+                "Routes": "SWB1"
+            },
+            {
+                "StopId": 7682,
+                "Code": "SWB1_1",
+                "Name": "Ga tàu thuỷ Bạch Đằng",
+                "StopType": "Trạm tạm",
+                "Zone": "Quận 1",
+                "Ward": "Phường Bến Nghé",
+                "AddressNo": "Ga tàu thuỷ Bạch Đằng",
+                "Street": "Tôn Đức Thắng",
+                "SupportDisability": "Có",
+                "Status": "Chưa khai thác",
+                "Lng": 106.706901,
+                "Lat": 10.775264,
+                "Search": "GttBD GttBD TDT",
+                "Routes": "SWB1"
+            }
+        ],
+        "RouteId": "337",
+        "RouteVarId": "2"
+    },
+    {
+        "Stops": [
+            {
+                "StopId": 7686,
+                "Code": "SWB1_11",
+                "Name": "Ga tàu thuỷ Linh Đông",
+                "StopType": "Trạm tạm",
+                "Zone": "Quận Thủ Đức",
+                "Ward": "Phường Linh Đông",
+                "AddressNo": "Bến tàu thuỷ Linh Đông",
+                "Street": "Đường số 36",
+                "SupportDisability": "Có",
+                "Status": "Chưa khai thác",
+                "Lng": 106.746254,
+                "Lat": 10.835287,
+                "Search": "GttLD BttLD Ds36",
+                "Routes": "SWB1"
+            },
+            {
+                "StopId": 7685,
+                "Code": "SWB1_10",
+                "Name": "Ga tàu thuỷ Hiệp Bình Chánh",
+                "StopType": "Trạm tạm",
+                "Zone": "Quận Thủ Đức",
+                "Ward": "Phường Hiệp Bình Chánh",
+                "AddressNo": "Bến tàu thuỷ Hiệp Bình Chánh",
+                "Street": "Đường số 10",
+                "SupportDisability": "Có",
+                "Status": "Chưa khai thác",
+                "Lng": 106.731475,
+                "Lat": 10.827231,
+                "Search": "GttHBC BttHBC Ds10",
+                "Routes": "SWB1"
+            },
+            {
+                "StopId": 7684,
+                "Code": "SWB1_8",
+                "Name": "Ga tàu thuỷ Thanh Đa",
+                "StopType": "Trạm tạm",
+                "Zone": "Quận Bình Thạnh",
+                "Ward": "Phường 27",
+                "AddressNo": "LO 1 Cư xá Thanh Đa ",
+                "Street": "Cư xá Thanh Đa",
+                "SupportDisability": "Có",
+                "Status": "Chưa khai thác",
+                "Lng": 106.715757,
+                "Lat": 10.819385,
+                "Search": "GttTD L1CxTD CxTD",
+                "Routes": "SWB1"
+            },
+            {
+                "StopId": 7683,
+                "Code": "SWB1_4",
+                "Name": "Ga tàu thuỷ Bình An",
+                "StopType": "Trạm tạm",
+                "Zone": "Quận 2",
+                "Ward": "Phường Bình An",
+                "AddressNo": "Ga tàu thuỷ Bình An",
+                "Street": "Đường số 21",
+                "SupportDisability": "",
+                "Status": "Chưa khai thác",
+                "Lng": 106.728734,
+                "Lat": 10.797349,
+                "Search": "GttBA GttBA Ds21",
+                "Routes": "SWB1"
+            },
+            {
+                "StopId": 7682,
+                "Code": "SWB1_1",
+                "Name": "Ga tàu thuỷ Bạch Đằng",
+                "StopType": "Trạm tạm",
+                "Zone": "Quận 1",
+                "Ward": "Phường Bến Nghé",
+                "AddressNo": "Ga tàu thuỷ Bạch Đằng",
+                "Street": "Tôn Đức Thắng",
+                "SupportDisability": "Có",
+                "Status": "Chưa khai thác",
+                "Lng": 106.706901,
+                "Lat": 10.775264,
+                "Search": "GttBD GttBD TDT",
+                "Routes": "SWB1"
+            }
+        ],
+        "RouteId": "337",
+        "RouteVarId": "2"
+    }
 ]
