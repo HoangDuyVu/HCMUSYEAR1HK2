@@ -37,7 +37,7 @@ class PathVar:
         for data in self.__infor["lng"]:
             self.__y.append(data)
         coor = []
-        print(len(self.__x))
+       # print(len(self.__x))
         for i in range(len(self.__x)):
             lat = self.__x[i]
             lng = self.__y[i]
