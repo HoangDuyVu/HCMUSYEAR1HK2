@@ -1,4 +1,5 @@
 from pyproj import Proj, transform
+from shapely.geometry import Point
 import json
 
 class PathVar:
@@ -44,6 +45,8 @@ class PathVar:
             X = lng
             Y = lat
             coor.append([X,Y])
+            point = Point(X, Y)
+           # print(point)
         List = {}
         List["coordinates"] = coor
         List["type"] = "LineString"
