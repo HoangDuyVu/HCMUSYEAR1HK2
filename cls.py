@@ -352,6 +352,7 @@ class Graph:
         OutJson = {}
         OutJson["Lat"] = []
         OutJson["Lng"] = []
+        OutJson["StopID"] = []
         OutJson["Running Time: "] = self.Dis[start_stop][end_stop][0]
         OutJson["Distance: "] = self.Dis[start_stop][end_stop][1]
 
@@ -366,6 +367,7 @@ class Graph:
         for data in List:
             OutJson["Lat"].append(self.StopsID[data][0])
             OutJson["Lng"].append(self.StopsID[data][1])
+            OutJson["StopID"].append(data)
         
         Route = []
         for i in range(len(List) - 1):
