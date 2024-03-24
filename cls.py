@@ -232,10 +232,21 @@ class PathVarQuery:
 class Graph:
     def __init__(self,TheRoute) -> None:
         self.Graph = {}
+        self.adj = [[] for _ in range(8000)]
+        self.StopsID = [0 for _ in range(8000)]
+        self.Dis = [[(0,0) for _ in range(8000)] for _ in range(8000)]
+        self.Trace = [[0 for _ in range(8000)] for _ in range(8000)]
         count = 0
         for data in TheRoute.listRoute:
             Sz = len(data.Path["lat"])
             Sz2 = len(data.Stops["Stops"])
+
+            for value in data.Stops["Stops"]:
+                self.StopsID[value["StopId"]] = [value["Lat"],value["Lng"]]
+            
+            for i in range(Sz2 - 1):
+                value = data.Stops["Stops"][i]
+                self.adj[value["StopId"]].append([data.Stops["Stops"][i + 1]["StopId"],data.TotalInfor["RouteId"],data.TotalInfor["RouteVarId"]])
 
             List = []
             i,j,d = (0,0,0)
@@ -260,7 +271,6 @@ class Graph:
                         j += 1
                 d += 1
             
-            #print(d)
             TotalDis = 0
             TotalTime = 0
             for i in range(1,d):
@@ -285,12 +295,9 @@ class Graph:
                     PrevId = u
                     Dis, Time = 0,0
                     count += 1
-        print(count)
 
     def DijkSra(self):
         d = 0
-        JsonOut = {}
-        AllStart = []
         for start in self.Graph:
             distances = {vertex: float('infinity') for vertex in self.Graph}
             times = {vertex: float('infinity') for vertex in self.Graph}
@@ -309,31 +316,105 @@ class Graph:
                     neighbor_name = neighbor[0]
                     if time < times[neighbor_name]:
                         times[neighbor_name] = time
+                        self.Trace[start][neighbor_name] = current_vertex
                         distances[neighbor_name] = distances[current_vertex] + neighbor[1]
                         heapq.heappush(pq, (time,neighbor_name))
+            
+            for i in self.Graph:
+                self.Dis[start][i] = (times[i],distances[i])
+
+    def OutAllPair(self):
+        JsonOut = {}
+        AllStart = []             
+        
+        for start in self.Graph:
             List = []
             for i in self.Graph:
-                if (times[i] >= 1e9):
+                if (self.Dis[start][i][0] >= 1e9):
                     continue
                 x = {}
                 x["To StopID"] = i
-                x["Time"] = times[i]
-                x["Distance"] = distances[i]
+                x["Time"] = self.Dis[start][i][0]
+                x["Distance"] = self.Dis[start][i][1]
                 List.append(x)
             
             Stops = {}
             Stops["StopID"] = start
             Stops["The shortest "] = List
             AllStart.append(Stops)
-            break
+
         JsonOut["Dijkstra"] = AllStart
 
         with open('dijkstra.json','w',encoding='utf8') as sv:
             json.dump(JsonOut,sv,indent=4,ensure_ascii=False)
-            
+    
+    def ShortestAB(self,start_stop,end_stop):
+        OutJson = {}
+        OutJson["Lat"] = []
+        OutJson["Lng"] = []
+        OutJson["Running Time: "] = self.Dis[start_stop][end_stop][0]
+        OutJson["Distance: "] = self.Dis[start_stop][end_stop][1]
 
-        #    break
-        #print(d)
+        if (self.Dis[start_stop][end_stop][0] > 1e9):
+            return 
+        List = []
+        List.append(end_stop)
+        while (start_stop != end_stop):
+            List.append(self.Trace[start_stop][end_stop])
+            end_stop = self.Trace[start_stop][end_stop]
+        List.reverse()
+        for data in List:
+            OutJson["Lat"].append(self.StopsID[data][0])
+            OutJson["Lng"].append(self.StopsID[data][1])
+        
+        Route = []
+        for i in range(len(List) - 1):
+            for data in self.adj[List[i]]:
+                if (data[0] == List[i + 1]):
+                    Route.append((data[1],data[2]))
+                    break
+        OutJson["RouteId"] = []
+        OutJson["RouteVarId"] = []
+        for data in Route:
+            OutJson["RouteId"].append(data[0])
+            OutJson["RouteVarId"].append(data[1])
+        
+        with jsonlines.open('shortestAB.json', mode='w') as sv:
+            sv.write(OutJson)
+    def topVertexPop(self,k):
+        Count = [[0 for _ in range(2)] for _ in range(8000)]
+        for u in self.Graph:
+            for v in self.Graph:
+                if (self.Dis[u][v][0] < 1e9 and u != v):
+                    x = u
+                    y = v
+                    Count[y][0] += 1
+                    while x != y:
+                        if (y == 0):
+                            #print("co")
+                            break
+                        Count[self.Trace[u][y]][0] += 1 
+                        y = self.Trace[u][y]
+        
+        for i in range(8000):
+            Count[i][1] = i
+
+        Count.sort()
+        Count.reverse()
+
+        JsonOut = {}
+        JsonOut["Top vertex:"] = []
+        for i in range(k):
+            List = {}
+            List["Top"] = i
+            List["StopID"] = Count[i][1]
+            List["Number"] = Count[i][0]
+            JsonOut["Top vertex:"].append(List)
+            print(Count[i][1],' ',Count[i][0])  
+        with open('topK.json','w',encoding='utf8') as sv:
+            json.dump(JsonOut,sv,indent=4,ensure_ascii=False)     
+
+
 
 
 

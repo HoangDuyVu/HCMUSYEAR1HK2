@@ -1,0 +1,54 @@
+{
+    "Top vertex:": [
+        {
+            "Top": 0,
+            "StopID": 606,
+            "Number": 3620189
+        },
+        {
+            "Top": 1,
+            "StopID": 603,
+            "Number": 3620189
+        },
+        {
+            "Top": 2,
+            "StopID": 510,
+            "Number": 3512061
+        },
+        {
+            "Top": 3,
+            "StopID": 268,
+            "Number": 2908868
+        },
+        {
+            "Top": 4,
+            "StopID": 267,
+            "Number": 2908868
+        },
+        {
+            "Top": 5,
+            "StopID": 1239,
+            "Number": 2819608
+        },
+        {
+            "Top": 6,
+            "StopID": 1720,
+            "Number": 2763376
+        },
+        {
+            "Top": 7,
+            "StopID": 1719,
+            "Number": 2763376
+        },
+        {
+            "Top": 8,
+            "StopID": 1301,
+            "Number": 2763376
+        },
+        {
+            "Top": 9,
+            "StopID": 2202,
+            "Number": 2728958
+        }
+    ]
+}
