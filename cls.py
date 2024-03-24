@@ -231,57 +231,110 @@ class PathVarQuery:
 
 class Graph:
     def __init__(self,TheRoute) -> None:
-        self.IdStop = {}
         self.Graph = {}
+        count = 0
         for data in TheRoute.listRoute:
-            for val in data.Stops["Stops"]:
-                self.IdStop[val["StopId"]] = [val["Lng"],val["Lat"]]
             Sz = len(data.Path["lat"])
-            a = 0
-            Dis = 0
+            Sz2 = len(data.Stops["Stops"])
+
+            List = []
+            i,j,d = (0,0,0)
+            while i < Sz  or j < Sz2:
+                if (i == Sz or d == 0):
+                    x1, y1 = LatLngToXY(data.Stops["Stops"][j]["Lat"],data.Stops["Stops"][j]["Lng"])
+                    List.append([x1,y1,data.Stops["Stops"][j]["StopId"]])
+                    j += 1
+                elif (j == Sz2):
+                    x1, y1 = LatLngToXY(data.Path["lat"][i],data.Path["lng"][i])
+                    List.append([x1,y1,-1])
+                    i += 1
+                else:
+                    x1,y1 = List[d - 1][0],List[d - 1][1]
+                    x2,y2 = LatLngToXY(data.Path["lat"][i],data.Path["lng"][i])
+                    x3,y3 = LatLngToXY(data.Stops["Stops"][j]["Lat"],data.Stops["Stops"][j]["Lng"])
+                    if (euclidean_distance(x1,y1,x2,y2) < euclidean_distance(x1,y1,x3,y3)):
+                        List.append([x2,y2,-1])
+                        i += 1
+                    else:
+                        List.append([x3,y3,data.Stops["Stops"][j]["StopId"]])
+                        j += 1
+                d += 1
+            
+            #print(d)
             TotalDis = 0
-            HsTime = 0
-            Hs = 0
-            Time = 0
-            DDis = 0
-            DDTime = 0
-            #data.EDGE.append([data.Stops["Stops"][a]["Lng"],data.Stops["Stops"][a]["Lat"],data.Stops["Stops"][a]["StopId"]])
-            for i in range(1,Sz):
-                x1, y1 = LatLngToXY(data.Path["lat"][i - 1],data.Path["lng"][i - 1])
-                x2,y2 = LatLngToXY(data.Path["lat"][i],data.Path["lng"][i])
-                TotalDis += euclidean_distance(x1,y1,x2,y2)
-                #print(x1,' ',y1,' ',x2,' ',y2)
-            
+            TotalTime = 0
+            for i in range(1,d):
+                TotalDis += euclidean_distance(List[i - 1][0],List[i - 1][1],List[i][0],List[i][1])
+                TotalTime += euclidean_distance(List[i - 1][0],List[i - 1][1],List[i][0],List[i][1])
             Hs = data.TotalInfor["Distance"]/TotalDis
-            HsTime = data.TotalInfor["RunningTime"]/TotalDis
-            print(Hs,' ',data.TotalInfor["Distance"], ' ',TotalDis,' ',data.TotalInfor["RunningTime"])
-            x1, y1 = LatLngToXY(data.Stops["Stops"][a]["Lat"],data.Stops["Stops"][a]["Lng"])
+            HsTime = data.TotalInfor["RunningTime"]*60/TotalTime
 
-            #print(len(data.Stops["Stops"]),' ',Sz)
-            for i in range(Sz):
-                if (a + 1 == len(data.Stops["Stops"])):
-                    break
+            Dis, Time = 0,0
+            PrevId = List[0][2]
+            for i in range(1,d):
+                Dis += euclidean_distance(List[i - 1][0],List[i - 1][1],List[i][0],List[i][1])*Hs
+                Time += euclidean_distance(List[i - 1][0],List[i - 1][1],List[i][0],List[i][1])*HsTime
+                if (List[i][2] != -1):
+                    u = List[i][2]
+                    v = PrevId
+                    if (v not in self.Graph):
+                        self.Graph[v] = []
+                    if (u not in self.Graph):
+                        self.Graph[u] = []
+                    self.Graph[v].append((u,Dis,Time))
+                    PrevId = u
+                    Dis, Time = 0,0
+                    count += 1
+        print(count)
 
-                if (abs(data.Stops["Stops"][a + 1]["Lat"] - data.Path["lat"][i]) <= (-1e-4 - 3e3) or i == Sz - 1):
-                    if (data.Stops["Stops"][a]["StopId"] not in self.Graph):
-                        self.Graph[data.Stops["Stops"][a]["StopId"]] = []
-                    self.Graph[data.Stops["Stops"][a]["StopId"]].append((data.Stops["Stops"][a + 1]["StopId"],Dis,Time))
-                    #print(data.Stops["Stops"][a]["StopId"],' ',data.Stops["Stops"][a + 1]["StopId"],' ',Dis)
-                    DDis += Dis
-                    DDTime += Time
-                    Dis = 0
-                    x1, y1 = LatLngToXY(data.Stops["Stops"][a + 1]["Lat"],data.Stops["Stops"][a + 1]["Lng"])
-                    a += 1
-
-                #x1, y1 = LatLngToXY(data.Stops["Stops"][a + 1]["Lat"],data.Stops["Stops"][a + 1]["Lng"])
-                x2,y2 = LatLngToXY(data.Path["lat"][i],data.Path["lng"][i])
-                Dis = Dis + euclidean_distance(x1,y1,x2,y2)*Hs
-                Time = Time + euclidean_distance(x1,y1,x2,y2)*HsTime
-                x1 = x2
-                y1 = y2
+    def DijkSra(self):
+        d = 0
+        JsonOut = {}
+        AllStart = []
+        for start in self.Graph:
+            distances = {vertex: float('infinity') for vertex in self.Graph}
+            times = {vertex: float('infinity') for vertex in self.Graph}
+            times[start] = 0
+            distances[start] = 0
+            pq = [(0, start)]
+            while pq:
+                d += 1
+                current_time, current_vertex = heapq.heappop(pq)
+                
+                if current_time > times[current_vertex]:
+                    continue
+                
+                for neighbor in self.Graph[current_vertex]:
+                    time = current_time + neighbor[2]
+                    neighbor_name = neighbor[0]
+                    if time < times[neighbor_name]:
+                        times[neighbor_name] = time
+                        distances[neighbor_name] = distances[current_vertex] + neighbor[1]
+                        heapq.heappush(pq, (time,neighbor_name))
+            List = []
+            for i in self.Graph:
+                if (times[i] >= 1e9):
+                    continue
+                x = {}
+                x["To StopID"] = i
+                x["Time"] = times[i]
+                x["Distance"] = distances[i]
+                List.append(x)
             
-            print(DDis,' ',DDTime)
-            #break
+            Stops = {}
+            Stops["StopID"] = start
+            Stops["The shortest "] = List
+            AllStart.append(Stops)
+            break
+        JsonOut["Dijkstra"] = AllStart
+
+        with open('dijkstra.json','w',encoding='utf8') as sv:
+            json.dump(JsonOut,sv,indent=4,ensure_ascii=False)
+            
+
+        #    break
+        #print(d)
+
 
 
 

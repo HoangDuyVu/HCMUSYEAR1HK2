@@ -2,6 +2,8 @@ from cls import RouteVarQuery
 from cls import StopQuery
 from cls import PathVarQuery
 from cls import Graph
+import time
+start_time = time.time()
 
 #print("You want to access route or stops?")
 
@@ -12,6 +14,8 @@ TheStops.AddStopInRouteVar(TheRoute)
 ThePath.AddPathsInRouteVar(TheRoute)
 TheRoute.DisplayAll('out.json')
 TheGraph = Graph(TheRoute)
+TheGraph.DijkSra()
+
 
 # id = input()
 # if id == "route" or id == "Route" or id == "R" or id == "r" or id == '1':
@@ -26,3 +30,7 @@ TheGraph = Graph(TheRoute)
 #     Input = input()
                     
 #     list.Sreach(Input)
+
+end_time = time.time()
+execution_time = end_time - start_time
+print("Time Running:", execution_time, "Second")
