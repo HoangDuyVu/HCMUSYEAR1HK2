@@ -14,23 +14,9 @@ TheStops.AddStopInRouteVar(TheRoute)
 ThePath.AddPathsInRouteVar(TheRoute)
 TheGraph = Graph(TheRoute)
 TheGraph.DijkSra()
-TheGraph.OutAllPair(2)
-TheGraph.ShortestAB(1,35)
-# TheGraph.topVertexPop(10)
-# id = input()
-# if id == "route" or id == "Route" or id == "R" or id == "r" or id == '1':
-#     #list.DisplayAll()
-#     print("Please enter the information you want to search for:")
-#     Input = input()
-                    
-#     list.Sreach(Input)
-# else:
-
-#     print("Please enter the information you want to search for:")
-#     Input = input()
-                    
-#     list.Sreach(Input)
-
+#TheGraph.OutAllPair(2)
+#TheGraph.ShortestAB(1,35)
+TheGraph.topVertexPop(10)
 
 end_time = time.time()
 execution_time = end_time - start_time

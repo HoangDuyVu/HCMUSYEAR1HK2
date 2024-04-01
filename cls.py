@@ -268,11 +268,15 @@ class PathVarQuery:
 
 class Graph:
     def __init__(self,TheRoute) -> None:
-        self.Graph = {}
+        self.Graph = [[] for _ in range(8000)]
         self.adj = [[] for _ in range(8000)]
         self.StopsID = [0 for _ in range(8000)]
         self.Dis = [[(0,0) for _ in range(8000)] for _ in range(8000)]
         self.Trace = [[0 for _ in range(8000)] for _ in range(8000)]
+        self.Count = [[0 for _ in range(2)] for _ in range(8000)]
+        self.Tree = [[] for _ in range(8000)]
+        self.CheckStopId = [0 for _ in range(8000)] 
+        self.ListStopId = []
         count = 0
         for data in TheRoute.listRoute:
             Sz = len(data.Path["lat"])
@@ -283,6 +287,7 @@ class Graph:
             
             for i in range(Sz2 - 1):
                 value = data.Stops["Stops"][i]
+                self.CheckStopId[value["StopId"]] = 1 
                 self.adj[value["StopId"]].append([data.Stops["Stops"][i + 1]["StopId"],data.TotalInfor["RouteId"],data.TotalInfor["RouteVarId"]])
 
             List = []
@@ -292,7 +297,7 @@ class Graph:
                     x1, y1 = LatLngToXY(data.Stops["Stops"][j]["Lat"],data.Stops["Stops"][j]["Lng"])
                     List.append([x1,y1,data.Stops["Stops"][j]["StopId"]])
                     j += 1
-                elif (j == Sz2):
+                elif (j == Sz2 - 1):
                     x1, y1 = LatLngToXY(data.Path["lat"][i],data.Path["lng"][i])
                     List.append([x1,y1,-1])
                     i += 1
@@ -324,10 +329,6 @@ class Graph:
                 if (List[i][2] != -1):
                     u = List[i][2]
                     v = PrevId
-                    if (v not in self.Graph):
-                        self.Graph[v] = []
-                    if (u not in self.Graph):
-                        self.Graph[u] = []
                     self.Graph[v].append((u,Dis,Time))
                     PrevId = u
                     Dis, Time = 0,0
@@ -335,9 +336,16 @@ class Graph:
 
     def DijkSra(self):
         d = 0
-        for start in self.Graph:
-            distances = {vertex: float('infinity') for vertex in self.Graph}
-            times = {vertex: float('infinity') for vertex in self.Graph}
+        for start in range(8000):
+            if (self.CheckStopId[start] == 1):
+                self.ListStopId.append(start)
+        distances = [float('infinity') for _ in range(8000)]
+        times = [float('infinity') for _ in range(8000)]
+        
+        for start in self.ListStopId:
+            for i in self.ListStopId:
+                distances[i] = 1e10
+                times[i] = 1e10
             times[start] = 0
             distances[start] = 0
             pq = [(0, start)]
@@ -357,7 +365,7 @@ class Graph:
                         distances[neighbor_name] = distances[current_vertex] + neighbor[1]
                         heapq.heappush(pq, (time,neighbor_name))
             
-            for i in self.Graph:
+            for i in self.ListStopId:
                 self.Dis[start][i] = (times[i],distances[i])
 
     def OutAllPair(self, Option):
@@ -365,16 +373,17 @@ class Graph:
             JsonOut = {}
             AllStart = []             
             
-            for start in self.Graph:
+            for start in self.ListStopId:
                 List = []
-                for i in self.Graph:
-                    if (self.Dis[start][i][0] >= 1e9):
-                        continue
-                    x = {}
-                    x["To StopID"] = i
-                    x["Time"] = self.Dis[start][i][0]
-                    x["Distance"] = self.Dis[start][i][1]
-                    List.append(x)
+                for i in range(8000):
+                    if (self.CheckStopId[i] == 1):
+                        if (self.Dis[start][i][0] >= 1e9):
+                            continue
+                        x = {}
+                        x["To StopID"] = i
+                        x["Time"] = self.Dis[start][i][0]
+                        x["Distance"] = self.Dis[start][i][1]
+                        List.append(x)
                 
                 Stops = {}
                 Stops["StopID"] = start
@@ -388,12 +397,11 @@ class Graph:
         else: 
             JsonOut = {}
             with jsonlines.open('dijkstra.json', mode='w') as writer:
-                for start in self.Graph:
-                    
+                for start in self.ListStopId:  
                     Stops = {}
                     Stops["To StopID"] = []
                     Stops["Time"] = []
-                    for i in self.Graph:
+                    for i in self.ListStopId:
                         if (self.Dis[start][i][0] >= 1e9):
                             continue
                         Stops["To StopID"].append(i)
@@ -438,36 +446,49 @@ class Graph:
         
         with jsonlines.open('shortestAB.json', mode='w') as sv:
             sv.write(OutJson)
+    
+    def DFS(self,u):
+        Count = 1
+        for v in self.Tree[u]:
+            Count += self.DFS(v)
+        self.Count[u][0] += Count
+        return Count
+    
     def topVertexPop(self,k):
-        Count = [[0 for _ in range(2)] for _ in range(8000)]
-        for u in self.Graph:
-            for v in self.Graph:
-                if (self.Dis[u][v][0] < 1e9 and u != v):
-                    x = u
-                    y = v
-                    Count[y][0] += 1
-                    while x != y:
-                        if (y == 0):
-                            #print("co")
-                            break
-                        Count[self.Trace[u][y]][0] += 1 
-                        y = self.Trace[u][y]
+        for u in self.ListStopId:
+
+            for i in self.ListStopId:
+                self.Tree[i].clear()
+    # 
+    #         - Due to the time being stored as a floating-point number, 
+    #         it is often difficult for the times of two stopIDs to match exactly. 
+    #         Therefore, we can consider that each pair (u, v) has only one unique shortest path.
+
+    #         - I will construct a tree based on each starting vertex, 
+    #        then use dynamic programming on the tree to the counting
+    # 
+            for v in self.ListStopId:
+                if (self.Dis[u][v][0] < 1e9 and u != v and self.Trace[u][v] != 0):
+                    x = self.Trace[u][v]
+                    self.Tree[x].append(v)
+            self.DFS(u)
+            
         
         for i in range(8000):
-            Count[i][1] = i
+            self.Count[i][1] = i
 
-        Count.sort()
-        Count.reverse()
+        self.Count.sort()
+        self.Count.reverse()
 
         JsonOut = {}
         JsonOut["Top vertex:"] = []
         for i in range(k):
             List = {}
-            List["Top"] = i
-            List["StopID"] = Count[i][1]
-            List["Number"] = Count[i][0]
+            List["Top"] = i + 1
+            List["StopID"] = self.Count[i][1]
+            List["Number"] = self.Count[i][0]
             JsonOut["Top vertex:"].append(List)
-            print(Count[i][1],' ',Count[i][0])  
+            print(self.Count[i][1],' ',self.Count[i][0])  
         with open('topK.json','w',encoding='utf8') as sv:
             json.dump(JsonOut,sv,indent=4,ensure_ascii=False)     
 
