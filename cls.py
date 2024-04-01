@@ -277,6 +277,7 @@ class Graph:
         self.Tree = [[] for _ in range(8000)]
         self.CheckStopId = [0 for _ in range(8000)] 
         self.ListStopId = []
+        self.StopIDInfor= [{} for _ in range(8000)]
         count = 0
         for data in TheRoute.listRoute:
             Sz = len(data.Path["lat"])
@@ -288,6 +289,7 @@ class Graph:
             for i in range(Sz2 - 1):
                 value = data.Stops["Stops"][i]
                 self.CheckStopId[value["StopId"]] = 1 
+                self.StopIDInfor[value["StopId"]] = value
                 self.adj[value["StopId"]].append([data.Stops["Stops"][i + 1]["StopId"],data.TotalInfor["RouteId"],data.TotalInfor["RouteVarId"]])
 
             List = []
@@ -483,10 +485,9 @@ class Graph:
         JsonOut = {}
         JsonOut["Top vertex:"] = []
         for i in range(k):
-            List = {}
+            List = self.StopIDInfor[ self.Count[i][1]]
             List["Top"] = i + 1
-            List["StopID"] = self.Count[i][1]
-            List["Number"] = self.Count[i][0]
+            List["The number of shortest paths passing through it"] = self.Count[i][0]
             JsonOut["Top vertex:"].append(List)
             print(self.Count[i][1],' ',self.Count[i][0])  
         with open('topK.json','w',encoding='utf8') as sv:
