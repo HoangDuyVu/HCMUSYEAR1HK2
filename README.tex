@@ -1,0 +1,534 @@
+\documentclass[12pt]{scrartcl}
+\usepackage{graphicx} % Required for inserting images
+
+\usepackage[sexy]{evan}
+\parindent 0pt
+\usepackage{hyperref}
+\usepackage{tasks}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{indentfirst}
+\usepackage{vntex}
+\usepackage{array}
+\usepackage{csquotes}
+\usepackage{enumitem}
+
+\usepackage{tcolorbox}
+
+\newtcolorbox{gitbox}{
+  colback=grey,
+  tcbox raise=5pt,
+}
+
+\usepackage{listings}
+\usepackage{color}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\newtheorem*{soln1}{Solution}
+
+
+\declaretheorem[style=thrmredbox,name= Problem]{prob2}
+
+\title{Solo project CS162}
+\author{Duy Vu Hoang - Student ID: 23125022}
+\date{February 2024}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Week 03}
+\subsection{ Create GitHub PRIVATE repository}
+
+\begin{enumerate}
+    \item Create account in \href{https://github.com}{github}.
+    \item Press \textcolor{blue}{New}.
+        \begin{center}
+            \includegraphics[width = 10cm]{1.png}
+        \end{center}
+    \item Write name project in \textcolor{blue}{Repository name}.
+    \item Choose Private.
+    \item Finally, click \textcolor{blue}{Create repository} to create project.
+    
+        \begin{center}
+            \includegraphics[width = 12cm]{2.png}
+        \end{center}
+
+        \begin{center}
+        This is example
+        \end{center}
+    
+\end{enumerate}
+
+\newpage
+
+\subsection{Create folder save source code}
+
+\begin{enumerate}
+    \item Open \textcolor{blue}{Terminal} , \textcolor{blue}{cd} in folder parent we want create.
+    \item Press text \textcolor{blue}{mkdir <name folder>}.
+   \item At this point, the folder has been created in the parent directory for you to save the source code.
+        \begin{center}
+            \includegraphics[width = 16cm]{5.png}
+        \end{center}
+    
+\end{enumerate}
+
+\newpage
+
+\subsection{Clone GitHub repository to computer}
+
+\begin{enumerate}
+    \item Select \textcolor{blue}{code}, then click on the \textcolor{blue}{copy} icon to copy the GitHub link.
+        \begin{center}
+            \includegraphics[width = 16cm]{3.png}
+        \end{center}
+    \item Open the \textcolor{blue}{terminal} in \textcolor{blue}{Visual Studio}.
+    \item Type the command: \textcolor{blue}{git clone <paste the copied link>} to clone the repository to your computer.
+        \begin{center}
+            \includegraphics[width = 16cm]{4.png}
+        \end{center}
+    
+\end{enumerate}
+
+
+\newpage
+\subsection{Create file .gitignore}
+
+\begin{enumerate}
+    \item Open the \textcolor{blue}{terminal} in \textcolor{blue}{Visual Studio}.
+    \item Type the command: \textcolor{blue}{touch .gitignore} to create the .gitignore file.
+    \item Write the names of the files you want to ignore when pushing to Github as illustrated below.
+
+        \begin{center}
+            \includegraphics[width = 16cm]{6.png}
+        \end{center}
+    
+\end{enumerate}
+
+\newpage
+\subsection{Basic git operations}
+
+\begin{enumerate}
+\item Git add
+
+\begin{enumerate}
+    \item \textcolor{blue}{git add}: This command adds the files/folders you want to include in the Staging Area, which is the preparation step before adding them to the local repository.
+    \item To perform this operation, open the \textcolor{blue}{terminal} and type the command \textcolor{blue}{git add <file/folder name>}.
+    \item If you want to add all files/folders in the directory, you can use the command \textcolor{blue}{git add .} (with a dot).
+\end{enumerate}
+
+\item Git commit
+
+\begin{enumerate}
+    \item \textcolor{blue}{git commit}: This command adds the files/folders that you have added to the Staging Area to the local repository.
+    \item To perform this operation, open the \textcolor{blue}{terminal} and type the command \textcolor{blue}{git commit -m "<your command here>"}.
+\end{enumerate}
+
+\item Git push
+
+\begin{enumerate}
+    \item \textcolor{blue}{git push}: This command pushes the files/folders that you have added to the local repository to the GitHub project you have cloned.
+    \item To perform this operation, open the \textcolor{blue}{terminal} and type the command \textcolor{blue}{git push}.
+\end{enumerate}
+
+\item Git pull
+
+\begin{enumerate}
+    \item \textcolor{blue}{git pull}: This command fetches the files/folders from the GitHub project to your computer.
+    \item To perform this operation, open the \textcolor{blue}{terminal} and type the command \textcolor{blue}{git pull}.
+\end{enumerate}
+
+\item Git log
+
+\begin{enumerate}
+    \item \textcolor{blue}{git log}: This command displays the edit history of the git file.
+    \item To perform this operation, open the \textcolor{blue}{terminal} and type the command \textcolor{blue}{git log}.
+\end{enumerate}
+
+\end{enumerate}
+\newpage
+
+
+\subsection{How to create a project with multiple files in Python}
+
+\begin{enumerate}
+    \item Create a project in Visual Studio.
+    \item Next, create the \textcolor{blue}{.py} files that you desire.
+    \item Create a file named \textcolor{blue}{main.py} and set it as the main function.
+    \item If you only want to import a class from any file, you can use the following command: \textcolor{blue}{from <file name> import <class name>}.
+    \item If you only want to import a function from any file, you can use the following command: \textcolor{blue}{from <file name> import <function name>}.
+        \begin{center}
+            \includegraphics[width = 16cm]{7.png}
+        \end{center}
+\end{enumerate}
+
+
+
+\newpage
+
+\subsection{How to write source code with multiple files}
+
+\begin{enumerate}
+     \item To be able to run multiple files from the main file, you can use the command \textcolor{blue}{import <file name you want to run (without the .py extension)>}.
+        \begin{center}
+            \includegraphics[width = 16cm]{7.png}
+        \end{center}
+    
+\end{enumerate}
+
+
+\newpage
+
+\subsection{Operations in Python}
+
+\begin{enumerate}
+\item How to use Class in Python
+
+    \begin{enumerate}
+    \item In Python, a class is a data structure capable of organizing data and code into a logical unit. It is used to define objects with common attributes and behaviors.
+    \item Here is an example of basic code about class in Python:
+    \begin{lstlisting}
+    class <class name>:
+    def __init__(self, <variables in the class>)
+    \end{lstlisting}
+    \item Below is a specific example of a \textcolor{blue}{class} in Python
+        \begin{center}
+            \includegraphics[width = 16cm]{8.png}
+            Figure 8.1.3 Illustration
+        \end{center}
+    \begin{itemize}
+        \item \textcolor{blue}{friend} is the name of the class.
+        \item \textcolor{blue}{member} is a class variable, understood in this code that if you add 1 object to the class, $member$ will increase by 1 and call it by using the command \textcolor{blue}{friend.member}.
+        \item \textcolor{blue}{def \_\_init\_\_(self, name, age, studentId):} is a function to construct an object with variables $name, age, studentID$ which are variables belonging to the object, not the \textcolor{blue}{class} like the variable $member$.
+    \end{itemize}
+
+    \end{enumerate}
+
+\item Property of Python Class
+
+    \begin{enumerate}
+    \item Properties help you control how the attributes of an object are accessed, assigned values, and deleted.
+    \item As shown in Figure 8.1.3, name is the property of the two functions getName and setName.
+    \item If you use $object.name$ in the program, then the class will call the \textcolor{blue}{getName} function.
+    \item If you use $object.name = "ZuyVuNee"$, then the class will call the \textcolor{blue}{setName} function.
+    \item Below is an illustration of how to use Property.
+        \begin{center}
+            \includegraphics[width = 16cm]{10.png}
+            Figure 8.2 Illustration
+        \end{center}
+    \end{enumerate}
+\end{enumerate}
+
+\section{Week 05}
+\subsection{Class diagram of Route}
+        \begin{center}
+            \includegraphics[width = 16cm]{11.png}
+        \end{center}
+\subsection{Class diagram of Stops}
+        \begin{center}
+            \includegraphics[width = 16cm]{12.png}
+        \end{center}
+
+\newpage
+
+\section{Week 06}
+\subsection{Convert coordinates from latitude and longitude to x and y}
+    \begin{enumerate}
+    \item  First, You need install pyproj if you  haven't already. You can install pyproj using pip
+    
+     \begin{gitbox} 
+        pip install pyproj
+     \end{gitbox}
+     \item You call This function is convert coordinates from latitude and longitude to x and y
+        \begin{center}
+            \includegraphics[width = 16cm]{13.png}
+        \end{center}
+    \end{enumerate}
+\subsection{Geojson.io}
+\begin{enumerate}
+    \item To display a point or linestring on a web Geojson.io, you need to output a JSON file in the format specified by Geojson standards. The output is generated in the following code:
+        \begin{center}
+            \includegraphics[width = 16cm]{14.png}
+        \end{center}
+                \begin{center}
+            \includegraphics[width = 16cm]{15.png}
+        \end{center}
+\newpage
+    \item After running, I will collect fileJson: 
+        \begin{center}
+            \includegraphics[width = 16cm]{16.png}
+        \end{center}
+    \item I open file in geojson: 
+        \begin{center}
+            \includegraphics[width = 16cm]{17.png}
+        \end{center}
+\end{enumerate}
+\newpage
+\subsection{Class Path and PathQuery}
+        \begin{center}
+            \includegraphics[width = 16cm]{18.png}
+        \end{center}
+\newpage
+\subsection{Shapely in Python}
+    \begin{enumerate}
+        \item Shapely is a Python library for geometric operations. It provides functionalities for creating, manipulating, and analyzing geometric objects such as points, lines, and polygons.
+        \item  First, You need install shapely if you  haven't already. You can install shapely using pip
+    
+     \begin{gitbox}
+         pip install shapely
+     \end{gitbox}
+
+     \item You can use function of shapely:
+        \begin{center}
+            \includegraphics[width = 16cm]{19.png}
+        \end{center}
+    \item \textbf{Function of a geometric object}
+        \begin{itemize}
+            \item length(): The length of a line 
+            \item area(): The area of a polygon
+            \item centroid(): Find the centroid of a geometric object
+            \item contains(geometry): Check if one geometric object contains another 
+            \item intersects(geometry): Check if one geometric object intersects with another 
+        \end{itemize}
+    \end{enumerate}
+
+\newpage
+\subsection{Rtree in python}
+\begin{enumerate}
+\item Rtree is a Python library that helps me store spatial objects such as points, rectangles, and polygons by organizing them into a binary tree structure for efficient querying. Rtree is useful for large datasets.
+         \item  First, You need install Rtree if you  haven't already. You can install Rtree using pip
+    
+     \begin{gitbox} 
+        pip install Rtree
+     \end{gitbox}
+
+    
+\item To use R-tree in Python, you can either implement it yourself or utilize external libraries and modules such as Rtree or PyRTree. Below, I will use the Rtree library to perform some operations.
+        \begin{center}
+            \includegraphics[width = 16cm]{20.png}
+        \end{center}
+    \end{enumerate}
+\subsection{LLM in python}
+\begin{itemize}
+\item Scikit-LLM is a library that helps us analyze text with large language models. Specifically, it assists us in analyzing and processing text using large language models such as GPT (Generative Pre-trained Transformer).
+\item The applications of Scikit-LLM include:
+
+\begin{itemize}
+    \item Generating natural text: generating new text based on input data.
+    \item Text classification.
+    \item Text summarization.
+\end{itemize}
+\item In this project, we can use LLM to respond to input queries and based on that, call appropriate functions corresponding to those input queries.
+\end{itemize}
+
+\newpage
+\section{Week 7}
+\subsection{Class diagram}
+        \begin{center}
+            \includegraphics[width = 16cm]{21.png}
+        \end{center}
+\newpage
+
+\subsection{Built Graph}
+\begin{itemize}
+\item Following the requirements of the problem statement, I will build the graph based on paths and stopIDs.
+\item Firstly, I will merge all lists of stops and paths into routes so that those with the same RouteVar and RouteVarID will belong entirely to a single route class, as shown in the code below.
+
+        \begin{center}
+            \includegraphics[width = 16cm]{22.png}
+        \end{center}
+
+                \begin{center}
+            \includegraphics[width = 16cm]{23.png}
+        \end{center}
+\newpage
+\item  After I have rebuilt the route class including stops, paths, and routes, I will construct the graph class with the following variables: 
+    \begin{lstlisting}
+self.Graph 
+# This array serves as the adjacency list of the graph 
+
+self.adj
+# This array indicates which stopIDs are adjacent to other stopIDs and the routes connecting the two stopIDs are on which RouteID and RouteVarID 
+
+self.StopsID
+# This array stores the latitude and longitude coordinates of the corresponding StopID 
+
+self.Dis
+# This is a 2D array indicating the shortest distance between two stopIDs x and y. For example, the shortest distance from StopID: X to StopID: y will be self.Dis[x][y] 
+
+self.Trace
+# This array indicates which vertex is the vertex that updates the shortest path status before it for each starting vertex. It has the form self.Trace[start][v] 
+
+self.CheckStopId
+# This array indicates whether StopID = x or not. If self.CheckStopId[x] = 1, then it exists; otherwise, it does not 
+
+self.ListStopId
+# This array stores all StopIDs 
+
+self.StopIDInfor
+# This array stores all the information of a StopID
+
+    \end{lstlisting}
+        \begin{center}
+            \includegraphics[width = 16cm]{24.png}
+        \end{center}
+\newpage
+
+\item I will use two pointers to add the coordinates of stopIDs to an array consisting of the coordinates of paths. Then, I will use formulas to estimate the time and distance of each pair of stopIDs and add them to the adjacency list as mentioned above. The detailed implementation is shown in the code snippet below:
+
+\begin{lstlisting}
+ def __init__(self,TheRoute) -> None:
+        self.Graph = [[] for _ in range(8000)]
+        self.adj = [[] for _ in range(8000)]
+        self.StopsID = [0 for _ in range(8000)]
+        self.Dis = [[(0,0) for _ in range(8000)] for _ in range(8000)]
+        self.Trace = [[0 for _ in range(8000)] for _ in range(8000)]
+        self.Count = [[0 for _ in range(2)] for _ in range(8000)]
+        self.Tree = [[] for _ in range(8000)]
+        self.CheckStopId = [0 for _ in range(8000)] 
+        self.ListStopId = []
+        self.StopIDInfor= [{} for _ in range(8000)]
+        count = 0
+        for data in TheRoute.listRoute:
+            Sz = len(data.Path["lat"])
+            Sz2 = len(data.Stops["Stops"])
+
+            for value in data.Stops["Stops"]:
+                self.StopsID[value["StopId"]] = [value["Lat"],value["Lng"]]
+            
+            for i in range(Sz2 - 1):
+                value = data.Stops["Stops"][i]
+                self.CheckStopId[value["StopId"]] = 1 
+                self.StopIDInfor[value["StopId"]] = value
+                self.adj[value["StopId"]].append([data.Stops["Stops"][i + 1]["StopId"],data.TotalInfor["RouteId"],data.TotalInfor["RouteVarId"]])
+
+            List = []
+            i,j,d = (0,0,0)
+            while i < Sz  or j < Sz2:
+                if (i == Sz or d == 0):
+                    x1, y1 = LatLngToXY(data.Stops["Stops"][j]["Lat"],data.Stops["Stops"][j]["Lng"])
+                    List.append([x1,y1,data.Stops["Stops"][j]["StopId"]])
+                    j += 1
+                elif (j == Sz2 - 1):
+                    x1, y1 = LatLngToXY(data.Path["lat"][i],data.Path["lng"][i])
+                    List.append([x1,y1,-1])
+                    i += 1
+                else:
+                    x1,y1 = List[d - 1][0],List[d - 1][1]
+                    x2,y2 = LatLngToXY(data.Path["lat"][i],data.Path["lng"][i])
+                    x3,y3 = LatLngToXY(data.Stops["Stops"][j]["Lat"],data.Stops["Stops"][j]["Lng"])
+                    if (euclidean_distance(x1,y1,x2,y2) < euclidean_distance(x1,y1,x3,y3)):
+                        List.append([x2,y2,-1])
+                        i += 1
+                    else:
+                        List.append([x3,y3,data.Stops["Stops"][j]["StopId"]])
+                        j += 1
+                d += 1
+            
+            TotalDis = 0
+            TotalTime = 0
+            for i in range(1,d):
+                TotalDis += euclidean_distance(List[i - 1][0],List[i - 1][1],List[i][0],List[i][1])
+                TotalTime += euclidean_distance(List[i - 1][0],List[i - 1][1],List[i][0],List[i][1])
+            Hs = data.TotalInfor["Distance"]/TotalDis
+            HsTime = data.TotalInfor["RunningTime"]*60/TotalTime
+
+            Dis, Time = 0,0
+            PrevId = List[0][2]
+            for i in range(1,d):
+                Dis += euclidean_distance(List[i - 1][0],List[i - 1][1],List[i][0],List[i][1])*Hs
+                Time += euclidean_distance(List[i - 1][0],List[i - 1][1],List[i][0],List[i][1])*HsTime
+                if (List[i][2] != -1):
+                    u = List[i][2]
+                    v = PrevId
+                    self.Graph[v].append((u,Dis,Time))
+                    PrevId = u
+                    Dis, Time = 0,0
+                    count += 1
+\end{lstlisting}
+\end{itemize}
+\newpage
+\subsection{Dijkstra}
+\begin{itemize}
+\item After constructing the graph, I will execute the Dijkstra algorithm for every pair of vertices. The complexity of this operation will be $\mathcal{O}(n^2 \cdot m)$, where $n$ is the number of vertices and $m$ is the number of edges.
+        \begin{center}
+            \includegraphics[width = 16cm]{25.png}
+        \end{center}
+\item The time to execute the algorithm is: 36.17513394355774 seconds.
+\end{itemize}
+\newpage
+\subsection{Shortest path from u to v}
+\begin{itemize}
+\item Based on the trace array, we can trace back to find the shortest path from u to v. With two adjacent vertices, we can determine which edge lies on which RouteVarID and RouteID based on self.adj as mentioned above. The detailed implementation is shown in the code snippet below:
+        \begin{center}
+            \includegraphics[width = 16cm]{26.png}
+        \end{center}
+\newpage 
+\item Below is the JSON file providing information about the shortest path from StopID: 1 to StopID: 35
+
+        \begin{center}
+            \includegraphics[width = 16cm]{27.png}
+        \end{center}
+\end{itemize}
+
+\newpage
+
+\subsection{All pairs shortest path}
+
+\begin{itemize}
+\item In this function, I will have two options to export the result to a JSON file:
+\item The first option, if the variable $option = 1$, I will print the JSON file with more detailed information.
+\begin{center}
+\includegraphics[width = 16cm]{28.png}
+\end{center}
+
+\item Because the amount of data output is very large, the data file size is up to \textbf{3.3 GB}, so the runtime of this function is: \textcolor{blue}{201.90204501152039 seconds}.
+
+\newpage
+\item The second option, if the variable $option \neq 1$, I will print the JSON file with a more concise format, including only the stopID array and the time.
+\begin{center}
+\includegraphics[width = 16cm]{29.png}
+\end{center}
+\item When you use $option != 1$, the data will be much smaller, only \textbf{420 MB}. At that time, the total runtime of this function is \textcolor{blue}{36.30091118812561 seconds}.
+\end{itemize}
+
+\subsection{Top shortest path}
+
+\begin{itemize}
+\item I will have a function with input data $k$ to display the top $k$ vertices with the most number of shortest paths passing through them.
+\item Initially, I intended to code a brute-force algorithm with the worst-case complexity of $\mathcal{O}{(n^3)}$, where $n$ is the number of vertices. However, based on the following observations:
+\begin{itemize}
+\item This is a graph without special properties.
+\item The edges of the graph have floating-point weights, so the probability of having two shortest paths for one pair of vertices is very low.
+\item Therefore, I will always assume that there is only one shortest path for each pair of vertices.
+\end{itemize}
+\item With these assumptions, for each starting vertex, I can completely build a tree consisting of edges lying on the shortest path.
+\item Then, for each starting vertex, I will build a tree with the starting vertex as the root, and then perform dynamic programming on the tree with a complexity of $\mathcal{O}{(n)}$, so the total time complexity is only $\mathcal{O}{(n^2)}$.
+\item The old "naive" algorithm took around \textbf{150 seconds} to run. When switched to this algorithm, the runtime reduced to \textbf{30 seconds}.
+\end{itemize}
+\begin{center}
+\includegraphics[width = 16cm]{30.png}
+\end{center}
+\end{document}
