@@ -1,64 +1,19 @@
-import math
-import heapq
+from rtree import index
+from shapely.geometry import Point
 
-def euclidean_distance(x1, y1, x2, y2):
-    # Tính khoảng cách Euclid giữa hai điểm (x1, y1) và (x2, y2)
-    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+# Create an Rtree index
+idx = index.Index()
 
-def input_graph_with_coordinates():
-    graph = {}
-    num_vertices = int(input("Nhập số lượng đỉnh của đồ thị: "))
-    num_edges = int(input("Nhập số lượng cạnh của đồ thị: "))
-    
-    for i in range(num_vertices):
-        print(f"Nhập thông tin cho đỉnh thứ {i + 1}:")
-        vertex_name = input("Tên đỉnh: ")
-        x, y = map(float, input("Nhập tọa độ x và y: ").split())
-        graph[(x, y)] = vertex_name
-    
-    for i in range(num_edges):
-        print(f"Nhập thông tin cho cạnh thứ {i + 1}:")
-        start_vertex_coords = tuple(map(float, input("Nhập tọa độ x và y của đỉnh xuất phát: ").split()))
-        end_vertex_coords = tuple(map(float, input("Nhập tọa độ x và y của đỉnh kết thúc: ").split()))
-        
-        # Tính toán khoảng cách Euclid giữa hai đỉnh và sử dụng nó làm trọng số của cạnh
-        weight = euclidean_distance(start_vertex_coords[0], start_vertex_coords[1], end_vertex_coords[0], end_vertex_coords[1])
-        
-        # Thêm cạnh vào đồ thị
-        if graph[start_vertex_coords] not in graph:
-            graph[graph[start_vertex_coords]] = {}
-        graph[graph[start_vertex_coords]][graph[end_vertex_coords]] = weight
-        
-        # Đảo ngược cạnh nếu đồ thị là vô hướng
-        if graph[end_vertex_coords] not in graph:
-            graph[graph[end_vertex_coords]] = {}
-        graph[graph[end_vertex_coords]][graph[start_vertex_coords]] = weight
-    
-    return graph
+# Insert spatial objects into the index
+idx.insert(0, (0, 0, 1, 1), obj=Point(0.5, 0.5))
+idx.insert(1, (1, 1, 2, 2), obj=Point(1.5, 1.5))
+idx.insert(2, (2, 2, 3, 3), obj=Point(2.5, 2.5))
 
-def dijkstra_with_coordinates(graph, start):
-    distances = {vertex: float('infinity') for vertex in graph}
-    distances[start] = 0
-    pq = [(0, start)]
-    
-    while pq:
-        current_distance, current_vertex = heapq.heappop(pq)
-        
-        if current_distance > distances[current_vertex]:
-            continue
-        
-        for neighbor, weight in graph[current_vertex].items():
-            distance = current_distance + weight
-            if distance < distances[neighbor]:
-                distances[neighbor] = distance
-                heapq.heappush(pq, (distance, neighbor))
-    
-    return distances
+# Perform a spatial query to find objects intersecting a given bounding box
+query_bbox = (0, 0, 1.5, 1.5)
+result_ids = list(idx.intersection(query_bbox))
 
-# Nhập đồ thị từ bàn phím với các cạnh được chỉ định bằng độ dài
-graph = input_graph_with_coordinates()
-print("Đồ thị bạn vừa nhập là:")
-print(graph)
+# Retrieve the spatial objects corresponding to the query results
+query_results = [idx.get(id).object for id in result_ids]
 
-# Áp dụng thuật toán Dijkstra cho đồ thị đã nhập
-#start_vertex = input("Nhập
+print("Spatial query results:", query_results)

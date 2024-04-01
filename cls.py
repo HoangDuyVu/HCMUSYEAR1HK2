@@ -7,6 +7,8 @@ import pyproj
 from pyproj import Transformer
 from shapely.geometry import Point
 
+import pyproj
+from pyproj import Transformer
 source_proj = pyproj.CRS.from_epsg(4326)
 target_proj = pyproj.CRS.from_epsg(3405)  # UTM zone 49N
 transformer = pyproj.Transformer.from_crs(source_proj, target_proj, always_xy=True)
@@ -65,10 +67,19 @@ class RouteVarQuery:
 
 
     def Display_csv(self,listOut,csvfile):
+        List = []
+        for data in listOut:
+            List.append(data.getTotal())
+        
         with open(csvfile,'w',newline='') as sv:
-            csv_writer = csv.writer(sv)
-            for data in listOut:
-                csv_writer.writerow(data.getTotal())
+            ok = 0
+            for data in List:
+                fieldnames = data.keys()
+                writer = csv.DictWriter(sv,fieldnames=fieldnames)
+                if ok == 0:
+                    writer.writeheader()
+                    ok = 1
+                writer.writerow(data)
 
     def Display_json(self,listOut,jsonfile):
             
@@ -92,6 +103,13 @@ class RouteVarQuery:
                     Ouput.append(data)
             self.Display_csv(Ouput,"out.csv")
             self.Display_json(Ouput,"out.json")
+    
+    def SreachbyProper(self, proper, val):
+        List = []
+        for data in self.listRoute:
+            if (data.Get(proper) == val):
+                List.append(data)
+            self.Display_json(List,"out.json")
 
 class Stop:
     def __init__(self,data) -> None:
@@ -123,10 +141,21 @@ class StopQuery:
             print("erorr",e)
 
     def Display_csv(self,listOut,csvfile):
+
+        List = []
+        for data in listOut:
+            List.append(data.GetStops())
+        
         with open(csvfile,'w',newline='') as sv:
-            csv_writer = csv.writer(sv)
-            for data in listOut:
-                csv_writer.writerow(data.GetStops())
+            ok = 0
+            for data in List:
+                fieldnames = data.keys()
+                writer = csv.DictWriter(sv,fieldnames=fieldnames)
+                if ok == 0:
+                    writer.writeheader()
+                    ok = 1
+                writer.writerow(data)
+
     def AddStopInRouteVar(self,TheRoute):
         for data in self.__listStops:
             for value in TheRoute.listRoute:
@@ -160,6 +189,14 @@ class StopQuery:
                     Ouput.append(data)
             self.Display_csv(Ouput,"out.csv")
             self.Display_json(Ouput,"out.json")
+
+    def SreachbyProper(self, proper, val):
+        List = []
+        for data in self.__listStops:
+            if (data.Get(proper) == val):
+                List.append(data)
+        self.Display_json(List,"out.json")
+        self.Display_csv(List,"out.csv")
 
 class PathVar:
     def __init__(self,data) -> None:
@@ -323,30 +360,48 @@ class Graph:
             for i in self.Graph:
                 self.Dis[start][i] = (times[i],distances[i])
 
-    def OutAllPair(self):
-        JsonOut = {}
-        AllStart = []             
-        
-        for start in self.Graph:
-            List = []
-            for i in self.Graph:
-                if (self.Dis[start][i][0] >= 1e9):
-                    continue
-                x = {}
-                x["To StopID"] = i
-                x["Time"] = self.Dis[start][i][0]
-                x["Distance"] = self.Dis[start][i][1]
-                List.append(x)
+    def OutAllPair(self, Option):
+        if (Option == 1):
+            JsonOut = {}
+            AllStart = []             
             
-            Stops = {}
-            Stops["StopID"] = start
-            Stops["The shortest "] = List
-            AllStart.append(Stops)
+            for start in self.Graph:
+                List = []
+                for i in self.Graph:
+                    if (self.Dis[start][i][0] >= 1e9):
+                        continue
+                    x = {}
+                    x["To StopID"] = i
+                    x["Time"] = self.Dis[start][i][0]
+                    x["Distance"] = self.Dis[start][i][1]
+                    List.append(x)
+                
+                Stops = {}
+                Stops["StopID"] = start
+                Stops["The shortest "] = List
+                AllStart.append(Stops)
 
-        JsonOut["Dijkstra"] = AllStart
+            JsonOut["Dijkstra"] = AllStart
 
-        with open('dijkstra.json','w',encoding='utf8') as sv:
-            json.dump(JsonOut,sv,indent=4,ensure_ascii=False)
+            with open('dijkstra.json','w',encoding='utf8') as sv:
+                json.dump(JsonOut,sv,indent=4,ensure_ascii=False)
+        else: 
+            JsonOut = {}
+            with jsonlines.open('dijkstra.json', mode='w') as writer:
+                for start in self.Graph:
+                    
+                    Stops = {}
+                    Stops["To StopID"] = []
+                    Stops["Time"] = []
+                    for i in self.Graph:
+                        if (self.Dis[start][i][0] >= 1e9):
+                            continue
+                        Stops["To StopID"].append(i)
+                        Stops["Time"].append(self.Dis[start][i][0])
+                    
+                    Stops["StopID"] = start
+                    writer.write(Stops)
+            
     
     def ShortestAB(self,start_stop,end_stop):
         OutJson = {}
